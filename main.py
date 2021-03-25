@@ -1,5 +1,6 @@
 from flask import Flask
-from flask_restful import Api, Resource
+from flask_restful import Api, Resource, reqparse
+import werkzeug
 
 app = Flask(__name__)
 api = Api(app)
@@ -7,9 +8,14 @@ api = Api(app)
 
 class HelloWorld(Resource):
     def get(self):
-        return {"data": "Hello World"}
+        return "Hello World"
 
     def post(self):
+        parse = reqparse.RequestParser()
+        parse.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')
+        args = parse.parse_args()
+        file = args['file']
+        file.save("first_file.jpg")
         return {"data": "Posted"}
 
 
