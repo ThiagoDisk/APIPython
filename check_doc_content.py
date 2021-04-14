@@ -61,37 +61,35 @@ def verificacoes(texto):
   returnMsg = 'Validados: '
 
   for line in lines:
-    if line:
-      for word in line.split(' '):
-        if word == '':
-          continue
-        try:
-          word = word.strip()
+    for word in line.split(' '):
+      try:
+        word = word.strip()
 
-          if validate_cpf(word):
-            returnMsg += ", tem cpf"
+        if validate_cpf(word):
+          returnMsg = returnMsg + ", tem cpf"
 
-          if len(word) == 9:
-            endereco = validate_cep(word)
-            if endereco:
-              returnMsg += ", tem cep" + endereco
+        if len(word) == 9:
+          endereco = validate_cep(word)
 
-          if validate_celular(word):
-            returnMsg += ", tem celular"
+          if endereco:
+            returnMsg = returnMsg + ", tem cep"
 
-          if validate_cnh(word):
-            returnMsg += ", tem cnh"
-          
-          if validate_cnpj(word):
-            returnMsg += ", tem cnpj"
+        if validate_celular(word):
+          returnMsg = returnMsg + ", tem celular"
 
-          if validate_pis(word):
-            returnMsg += ", tem pis"
+        if validate_cnh(word):
+          returnMsg = returnMsg + ", tem cnh"
 
-          if validate_titulo(word):
-            returnMsg += ", tem titulo"
-        except:
-          continue
+        if validate_cnpj(word):
+          returnMsg = returnMsg + ", tem cnpj"
+
+        if validate_pis(word):
+          returnMsg = returnMsg + ", tem pis"
+
+        if validate_titulo(word):
+          returnMsg = returnMsg + ", tem titulo"
+      except:
+        continue
   return returnMsg
 
 def verificar_docx(arquivo):
