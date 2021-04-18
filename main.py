@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 from flask_restful import Api, Resource, reqparse
 import werkzeug
@@ -11,10 +11,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 api = Api(app)
 
 
-class HelloWorld(Resource):
-    def get(self):
-        return "Hello World"
-
+class ValidateFile(Resource):
     @cross_origin()
     def post(self):
         parse = reqparse.RequestParser()
@@ -22,7 +19,7 @@ class HelloWorld(Resource):
         args = parse.parse_args()
         file = args['file']
         file.save(file.filename)
-        return verificar_documento(file.filename)
+        return jsonify({'resultData': verificar_documento(file.filename)})
 
     def db_connection(self):
         conn = pyodbc.connect('Driver={SQL Server};'
@@ -37,8 +34,7 @@ class HelloWorld(Resource):
             print(row);
 
 
-api.add_resource(HelloWorld, "/helloworld")
+api.add_resource(ValidateFile, "/validatefile")
 
 if __name__ == "__main__":
-    HelloWorld.db_connection("none")
     app.run(debug=True)

@@ -6,3 +6,4 @@ validate-docbr
 pycep-correios
 phonenumbers
 textract
+pyodbc
