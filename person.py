@@ -7,7 +7,8 @@ class Person:
   cep = None
   endereco = None
   celular = None
-  
+  flagAutorizacao = None
+  flagMenor = None
   def serialize(self):
       return {
           'cpf': self.cpf, 
@@ -17,5 +18,7 @@ class Person:
           'titulo': self.titulo,
           'cep': self.cep,
           'endereco': self.endereco,
-          'celular': self.celular
+          'celular': self.celular,
+          'flagAutorizacao': self.flagAutorizacao,
+          'flagMenor': self.flagMenor
       }

@@ -142,7 +142,7 @@ def verificar_documento(arquivo):
       return 'Tipo inválido'
     
 
-    return [person.serialize() for person in people]
+    return people
   else:
     return 'Arquivo não encontrado.'
 
