@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS, cross_origin
 from flask_restful import Api, Resource, reqparse
 import werkzeug
+import pyodbc;
 from check_doc_content import verificar_documento
 
 app = Flask(__name__)
@@ -23,8 +24,21 @@ class HelloWorld(Resource):
         file.save(file.filename)
         return verificar_documento(file.filename)
 
+    def db_connection(self):
+        conn = pyodbc.connect('Driver={SQL Server};'
+                              'Server=DESKTOP-0CVQI3R;'
+                              'Database=Northwind;'
+                              'Trusted_Connection=yes;')
+
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM Customers')
+
+        for row in cursor:
+            print(row);
+
 
 api.add_resource(HelloWorld, "/helloworld")
 
 if __name__ == "__main__":
+    HelloWorld.db_connection("none")
     app.run(debug=True)
